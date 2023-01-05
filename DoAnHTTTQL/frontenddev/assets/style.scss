@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  box-sizing: border-box;
+}
+
+.content-page {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  height: max-content;
+  box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05);
+}
+
+.btn-action-group {
+  margin-top: 30px;
+}
