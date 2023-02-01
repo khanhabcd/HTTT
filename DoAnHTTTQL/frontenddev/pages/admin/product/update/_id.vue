@@ -134,7 +134,7 @@ export default {
           this.$notify({
             type: "error",
             title: "Thất bại !",
-            text: api.data.message,
+            text: response.data.message,
           });
         }
       }

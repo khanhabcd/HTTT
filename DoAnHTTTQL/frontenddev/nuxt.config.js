@@ -1,10 +1,10 @@
 require("dotenv").config();
 export default {
   env: {
-    API_SERVER: 'http://localhost:12345' || process.env.API_SERVER,
+    API_SERVER: "http://localhost:12345" || process.env.API_SERVER,
   },
   server: {
-    port: 54321, // default: 3000
+    port: 4500,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

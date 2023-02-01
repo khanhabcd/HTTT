@@ -11,11 +11,7 @@
       <!--  -->
       <div class="btn-action-group">
         <button class="btn-action btn-cancel" @click="handleBack">Hủy</button>
-        <button
-          class="btn-action btn-save"
-          @click="handleSave"
-          :disabled="loadingSave"
-        >
+        <button class="btn-action btn-save" @click="handleSave" :disabled="loadingSave">
           <span v-if="loadingSave"><a-icon type="loading" /></span>
           <span v-else>Lưu</span>
         </button>
@@ -61,7 +57,8 @@ export default {
     valueInput(value = {}) {
       this.dataBill.status = value.status;
       this.dataBill.quantily = value.quantily;
-      this.dataBill.amount = value.quantity;
+      this.dataBill.amount = value.amount;
+      console.log("log databill --", this.dataBill);
     },
 
     getList(arr) {
@@ -77,6 +74,29 @@ export default {
         });
         return false;
       }
+      if (!this.dataBill.status) {
+        this.$notify({
+          type: "error",
+          title: "Thất bại !",
+          text: "Bạn chưa nhập trang thái !",
+        });
+        return false;
+      }
+      if (this.dataBill.quantily == 0) {
+        this.$notify({
+          type: "error",
+          title: "Thất bại !",
+          text: "Bạn chưa chọn đồ uống !",
+        });
+        return false;
+      } if (this.dataBill.amount == 0) {
+        this.$notify({
+          type: "error",
+          title: "Thất bại !",
+          text: "Bạn chưa tính tiền !",
+        });
+        return false;
+      }
       return true;
     },
 
@@ -84,12 +104,12 @@ export default {
       let check = await this.beforSave();
       if (check) {
         this.loadingSave = true;
-
+        console.log("log databill --", this.dataBill);
         const url = process.env.API_SERVER;
         const response = await this.$axios.post(url + "/api/bill/create", {
           status: this.dataBill.status,
-          quantily: this.dataBill.amount,
-          amount: this.dataBill.quantily,
+          quantily: this.dataBill.quantily,
+          amount: this.dataBill.amount,
           product_id: this.arrProd,
           created_at: Date.now(),
         });
@@ -108,7 +128,7 @@ export default {
           this.$notify({
             type: "error",
             title: "Thất bại !",
-            text: api.data.message,
+            text: response.data.message,
           });
         }
       }
@@ -124,6 +144,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .text-title {
     margin-bottom: 0;
     font-size: 18px;
@@ -144,12 +165,14 @@ export default {
   font-weight: bold;
   outline: none;
 }
+
 .btn-cancel {
   margin-right: 15px;
   color: #1d253b80;
   background: #fff;
   border: 1px solid #1d253b80;
 }
+
 .btn-cancel:hover {
   border: 1px solid #e14eca;
   color: #e14eca;

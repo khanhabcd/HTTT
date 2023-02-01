@@ -94,7 +94,6 @@ export default {
           name: this.dataProduct.name,
           status: this.dataProduct.status,
           money: this.dataProduct.money,
-
           created_at: Date.now(),
         });
         if (response.data && response.data.success == true) {
@@ -112,7 +111,7 @@ export default {
           this.$notify({
             type: "error",
             title: "Thất bại !",
-            text: api.data.message,
+            text: response.data.message,
           });
         }
       }
