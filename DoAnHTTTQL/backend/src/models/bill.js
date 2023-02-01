@@ -3,7 +3,7 @@ const schema = mongoose.Schema;
 const billsSchema = new schema({
   amount: String,
   status: {
-    type: Number,
+    type: String,
     default: 0,
   },
   created_at: {
